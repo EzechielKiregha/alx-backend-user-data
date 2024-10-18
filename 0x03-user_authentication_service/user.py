@@ -20,10 +20,14 @@ class User(Base):
 
         Attributes:
             id (int): The primary key for the user.
-            email (str): The user's email address (max 250 chars, non-nullable).
-            hashed_password (str): The user's hashed password (max 250 chars, non-nullable).
-            session_id (str): A session ID for tracking user sessions (nullable, max 250 chars).
-            reset_token (str): A token for password reset functionality (nullable, max 250 chars).
+            email (str): The user's email address (max 250 chars,
+            non-nullable).
+            hashed_password (str): The user's hashed password (max 250 chars,
+            non-nullable).
+            session_id (str): A session ID for tracking user sessions
+            (nullable, max 250 chars).
+            reset_token (str): A token for password reset functionality
+            (nullable, max 250 chars).
         """
         __tablename__ = 'users'
 
