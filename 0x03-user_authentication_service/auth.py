@@ -17,7 +17,14 @@ class Auth:
         self._db = DB()
 
     def hash_password(self, password: str) -> bytes:
-        """Hashes the password using bcrypt."""
+        """Hashes the password using bcrypt.
+
+        Args:
+            password (str): The plain text password to hash.
+
+        Returns:
+            bytes: The hashed password.
+        """
         return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
     def register_user(self, email: str, password: str) -> User:
