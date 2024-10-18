@@ -44,4 +44,3 @@ class Auth:
             # Create the user
             new_user = self._db.add_user(email, hashed_password)
             return new_user
-
