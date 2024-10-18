@@ -16,6 +16,19 @@ Base = declarative_base()
 
 
 class User(Base):
+    """
+    Represents a user in the system.
+
+    Attributes:
+        id (int): The primary key for the user.
+        email (str): The user's email address (max 250 chars).
+        hashed_password (str): The hashed password for the user (max 250
+        chars).
+        session_id (Optional[str]): A session ID for tracking user sessions
+        (nullable, max 250 chars).
+        reset_token (Optional[str]): A token for password reset functionality
+        (nullable, max 250 chars).
+    """
     __tablename__: str = 'users'
 
     id: Column = Column(Integer, primary_key=True)
