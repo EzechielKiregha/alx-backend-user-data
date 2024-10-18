@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 
-
 """
 DB Module
 """
 
+from sqlalchemy import create_engine  # Import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from user import User
+from user import Base, User  # Assuming User is imported from user.py
+
 
 class DB:
     """DB class to handle user operations in the database."""
 
     def __init__(self) -> None:
         """Initialize a new DB instance and setup the SQLite engine."""
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db", echo=True)  # create_engine is now defined
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -36,15 +39,7 @@ class DB:
         Returns:
             User: The created User object.
         """
-        # Create a new User object
         new_user = User(email=email, hashed_password=hashed_password)
-
-        # Add the user to the session
         self._session.add(new_user)
-
-        # Commit the session to save the user in the database
         self._session.commit()
-
-        # Return the created User object
         return new_user
-
