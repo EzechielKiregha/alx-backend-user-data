@@ -6,7 +6,7 @@ Auth Module
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
-from typing import Optional
+from sqlalchemy.exc import InvalidRequestError
 import bcrypt
 
 
@@ -16,11 +16,11 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
-    def _hash_password(self, password: str) -> bytes:
+    def hash_password(self, password: str) -> bytes:
         """Hashes the password using bcrypt."""
         return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-    def register_user(self, email: str, password: str) -> Optional[User]:
+    def register_user(self, email: str, password: str) -> User:
         """Registers a new user with the provided email and password.
 
         Args:
@@ -40,7 +40,8 @@ class Auth:
             raise ValueError(f"User {email} already exists")
         except NoResultFound:
             # Hash the password
-            hashed_password = self._hash_password(password)
+            hashed_password = self.hash_password(password)
             # Create the user
             new_user = self._db.add_user(email, hashed_password)
             return new_user
+
