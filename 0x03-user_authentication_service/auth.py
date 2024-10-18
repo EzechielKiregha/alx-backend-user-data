@@ -50,5 +50,5 @@ class Auth:
             # Hash the password
             _hashed_password = self.hash_password(password)
             # Create the user
-            new_user = self._db.add_user(email, hashed_password)
+            new_user = self._db.add_user(email, _hashed_password)
             return new_user
