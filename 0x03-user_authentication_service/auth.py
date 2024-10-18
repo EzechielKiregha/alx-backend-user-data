@@ -3,11 +3,9 @@
 Auth Module
 """
 
-
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy.exc import InvalidRequestError
 import bcrypt
 
 
@@ -17,7 +15,7 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
-    def hash_password(self, password: str) -> bytes:
+    def _hash_password(self, password: str) -> bytes:
         """Hashes the password using bcrypt.
 
         Args:
@@ -48,7 +46,7 @@ class Auth:
             raise ValueError(f"User {email} already exists")
         except NoResultFound:
             # Hash the password
-            _hashed_password = self.hash_password(password)
+            hashed_password = self._hash_password(password)
             # Create the user
-            new_user = self._db.add_user(email, _hashed_password)
+            new_user = self._db.add_user(email, hashed_password)
             return new_user
