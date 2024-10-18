@@ -17,6 +17,7 @@ Base = declarative_base()
 
 class User(Base):
 
+
     """
     SQLAlchemy model representing the 'users' table.
 
